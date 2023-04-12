@@ -16,7 +16,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('critic:index')
+            return redirect('movie:index')
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/form.html', {
@@ -32,7 +32,7 @@ def signin(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect(request.GET.get('next') or 'critic:index')
+            return redirect(request.GET.get('next') or 'movie:index')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/form.html', {
@@ -41,7 +41,7 @@ def signin(request):
 
 def signout(request):
     logout(request)
-    return redirect('critic:index')
+    return redirect('movie:index')
 
 @require_safe
 def profile(request, username):

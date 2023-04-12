@@ -4,34 +4,35 @@
 
 <h1>{{ movie.title }}</h1>
 
-<p>{{ movie.poster }}</p>
+<p>
+    <img src="{{ movie.poster }}" alt="movie_poster">
+</p>
 
-<p>{{ movie.director }}</p>
+<p>개봉일자: {{ movie.released_date }}</p>
 
-<p>{{ movie.actors }}</p>
+<p>러닝타임: {{ movie.running_time }}분</p>
 
-<p>{{ movie.genre }}</p>
-
-<p>{{ movie.released_date }}</p>
-
-<p>{{ movie.running_time }}</p>
-
-<p>{{ movie.rating }}</p>
 
 
 <h2>Critic</h2>
 
 {% if request.user.is_authenticated %}
+{% if is_oneline_user %}
+{% else %}
     {% include 'critic/_oneline_form.html' %}
+{% endif %}
 {% endif %}
 
 <div>
     <ul>
         {% for oneline in movie.oneline_set.all %}
         <li>
-            {{ oneline.user.username }}: {{ oneline.rating }}, {{ oneline.content }} 좋아요: {{ oneline.like_oneline_user.count }}
+            <a href="{% url 'accounts:profile' oneline.user.username %}">
+                {{ oneline.user.username }}: 
+            </a>
+            별점: {{ oneline.rating }}, 한줄평: {{ oneline.content }} 좋아요: {{ oneline.like_oneline_user.count }}
             {% if request.user == oneline.user %}
-            <form action="{% url 'critic:update_oneline' oneline.pk %}" method="POST">
+            <form action="{% url 'critic:update_oneline' oneline.pk %}" method="GET">
                 {% csrf_token %}
                 <button>수정</button>
             </form>
@@ -43,7 +44,11 @@
             {% if request.user.is_authenticated %}
             <form action="{% url 'critic:like_oneline' oneline.pk %}" method="POST">
                 {% csrf_token %}
-                <button>좋아요/좋아요 취소</button>
+                {% if request.user in oneline.like_oneline_user.all %}
+                <button>좋아요 취소</button>
+                {% else %}
+                <button>좋아요</button>
+                {% endif %}
             </form>
             {% endif %}
             {% if request.user.is_authenticated %}

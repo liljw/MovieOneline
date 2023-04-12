@@ -17,16 +17,8 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
     - Movie
         - title
         - poster
-        - director
-        - actors (M:N)
         - released_date
         - running_time
-        - genre (M:N)
-        - rating
-    - Actor
-        - name
-    - Genre
-        - name   
 
 - Critic
     - Oneline
@@ -62,11 +54,7 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
 - Movie
     - detail
         - movieinfo
-            - poster img
-            - director
-            - actors
-            - rating
-            - etc
+            - movie attributes
         - critic
             - critic form
             - critic list (user : rating, oneline)
@@ -75,7 +63,9 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
                 - reply list
                     - like_reply
     - index
-        - welcome
+        - search input
+    - search
+        - search result list
         
 - Critic
     - oneline
@@ -88,6 +78,15 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
         - delete_reply
     - like
         - like_oneline
+
+- Navbar
+    - Home
+    - if authenticated
+        - My Profile
+        - Log out
+    - else
+        - Log in
+        - Sign up
 
                 
 
@@ -104,6 +103,14 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
 
 - 23.04.12 10:40 am, like_reply, like_movie 기능 삭제.
 - 23.04.12 11:00 am, create_oneline과 동시에 rated_movie에 data 추가 기능 구현.
+- 23.04.12 11:30 am, navbar 추가, 서버 활성화 및 버그 수정 시작.
+- 23.04.12 12:00 pm, movie API 연동 시작, pip install tmdbsimple, requests.
+- 23.04.12 13:30 pm, 검색 기능 추가.
+- 23.04.12 14:50 pm, movie 모델링 수정. 
+- 23.04.12 23:10 pm, 모든 기능 구현 완료. (백엔드)
+
+
+
 
 
 

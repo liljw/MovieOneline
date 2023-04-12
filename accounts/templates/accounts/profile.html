@@ -17,14 +17,14 @@
     </form>
 </div>
 
-<h2>{{ profile_user.username }}이 본 영화 (별점 내림차순)</h2>
+<h2>{{ profile_user.username }}이 본 영화</h2>
 
 <div>
     <ul>
         {% for movie in profile_user.rated_movie.all %}
         <li>
             {{ movie.poster }}
-            <a href="{% url 'movie:detail' movie.title %}">
+            <a href="{% url 'movie:detail' movie.title movie.pk %}">
                 {{ movie.title }}
             </a>
         </li>
@@ -39,7 +39,10 @@
     <ul>
         {% for oneline in profile_user.oneline_set.all %}
         <li>
-            {{ oneline.movie }}: {{ oneline.content }}
+            <a href="{% url 'movie:detail' oneline.movie.title oneline.movie.pk %}">
+            {{ oneline.movie }}: 
+            </a>
+            {{ oneline.content }}
         </li>
         {% endfor %}
     </ul>
@@ -51,15 +54,14 @@
     <ul>
         {% for oneline in profile_user.like_oneline.all %}
         <li>
-            {{ oneline.user.username }}: {{ oneline.content }}
+            <a href="{% url 'accounts:profile' oneline.user.username %}">
+                {{ oneline.user.username }}: 
+            </a>
+            {{ oneline.content }}
         </li>
         {% endfor %}
     </ul>
 </div>
-
-{% endif %}
-
-
 
 
 

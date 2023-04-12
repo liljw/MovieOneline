@@ -4,17 +4,21 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import OnelineForm, ReplyForm
 from .models import Oneline, Reply
+from movie.models import Movie
 
 @login_required
 @require_POST
-def create_oneline(request):
+def create_oneline(request, movie_name):
+    movie = get_object_or_404(Movie, title=movie_name)
     form = OnelineForm(request.POST)
     if form.is_valid():
         oneline = form.save(commit=False)
         oneline.user = request.user
+        oneline.movie = movie
+        oneline.user.rated_movie.add(oneline.movie)
         oneline.save()
-    oneline.user.rated_movie = oneline.movie
-    return redirect('movie:detail', oneline.movie.title)
+
+    return redirect('movie:detail', movie.title, movie.pk)
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -26,7 +30,7 @@ def update_oneline(request, oneline_pk):
         form = OnelineForm(request.POST, instance=oneline)
         if form.is_valid():
             oneline = form.save()
-            return redirect('movie:detail', oneline.movie.title)
+            return redirect('movie:detail', oneline.movie.title, oneline.movie.pk)
     else:
         form = OnelineForm(instance=oneline)
     return render(request, 'critic/oneline_edit.html', {
@@ -39,8 +43,9 @@ def update_oneline(request, oneline_pk):
 def delete_oneline(request, oneline_pk):
     oneline = get_object_or_404(Oneline, pk=oneline_pk)
     movie = oneline.movie
+    oneline.user.rated_movie.remove(movie)
     oneline.delete()
-    return redirect('movie:detail', movie.title)
+    return redirect('movie:detail', movie.title, movie.pk)
 
 @login_required
 @require_POST
@@ -52,7 +57,7 @@ def create_reply(request, oneline_pk):
         reply.user = request.user
         reply.oneline = oneline
         reply.save()
-    return redirect('movie:detail', reply.oneline.movie.title)
+    return redirect('movie:detail', reply.oneline.movie.title, reply.oneline.movie.pk)
     
 @login_required
 @require_POST
@@ -62,7 +67,7 @@ def delete_reply(request, oneline_pk, reply_pk):
     if request.user != reply.user:
         return redirect('movie:index')
     reply.delete()
-    return redirect('movie:detail', oneline.movie.title)
+    return redirect('movie:detail', oneline.movie.title, oneline.movie.pk)
 
 @login_required
 @require_POST
@@ -73,7 +78,7 @@ def like_oneline(request, oneline_pk):
         oneline.like_oneline_user.remove(user)
     else:
         oneline.like_oneline_user.add(user)
-    return redirect('movie:detail', oneline.movie.title)
+    return redirect('movie:detail', oneline.movie.title, oneline.movie.pk)
 
 
 

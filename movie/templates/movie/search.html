@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>검색 결과</h1>
+
+<div>
+    <ul>
+        {% for title, id in results %}
+        <li>
+            <a href="{% url 'movie:detail' title id %}">
+                {{ title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock content %}

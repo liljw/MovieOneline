@@ -1,0 +1,24 @@
+<nav>
+    <ul>
+        <li>{{ request.user }}님 안녕하세요 :)</li>
+        <li>
+            <a href="{% url 'movie:index' %}">Home</a>
+        </li>
+            {% if request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'accounts:profile' request.user.username %}">My Profile</a>
+            </li>
+            <li>
+                <a href="{% url 'accounts:signout' %}">Log Out</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'accounts:signin' %}">Log In</a>
+            </li>
+            <li>
+                <a href="{% url 'accounts:signup' %}">Sign Up</a>
+            </li>
+            {% endif %}
+        </li>
+    </ul>
+</nav>
