@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ movie.title }}</h1>
+
+<p>{{ movie.poster }}</p>
+
+<p>{{ movie.director }}</p>
+
+<p>{{ movie.actors }}</p>
+
+<p>{{ movie.genre }}</p>
+
+<p>{{ movie.released_date }}</p>
+
+<p>{{ movie.running_time }}</p>
+
+<p>{{ movie.rating }}</p>
+
+
+<h2>Critic</h2>
+
+{% if request.user.is_authenticated %}
+    {% include 'critic/_oneline_form.html' %}
+{% endif %}
+
+<div>
+    <ul>
+        {% for oneline in movie.oneline_set.all %}
+        <li>
+            {{ oneline.user.username }}: {{ oneline.rating }}, {{ oneline.content }} 좋아요: {{ oneline.like_oneline_user.count }}
+            {% if request.user == oneline.user %}
+            <form action="{% url 'critic:update_oneline' oneline.pk %}" method="POST">
+                {% csrf_token %}
+                <button>수정</button>
+            </form>
+            <form action="{% url 'critic:delete_oneline' oneline.pk %}" method="POST">
+                {% csrf_token %}
+                <button>삭제</button>
+            </form>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'critic:like_oneline' oneline.pk %}" method="POST">
+                {% csrf_token %}
+                <button>좋아요/좋아요 취소</button>
+            </form>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                {% include 'critic/_reply_form.html' %}
+            {% endif %}
+            {% include 'critic/_reply_list.html' %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock content %}

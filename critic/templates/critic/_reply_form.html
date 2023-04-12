@@ -1,0 +1,7 @@
+<div>
+    <form action="{% url 'critic:create_reply' oneline.pk %}" method="POST">
+        {% csrf_token %}
+        {{ reply_form.as_p }}
+        <button>등록</button>
+    </form>
+</div>

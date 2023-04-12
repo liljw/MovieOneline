@@ -11,10 +11,24 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
     - User
         - follow (M:N)
         - like_oneline (M:N)
-        - like_reply (M:N)
-- Movies
+        - rated_movie (M:N)
 
-- Critics
+- Movie
+    - Movie
+        - title
+        - poster
+        - director
+        - actors (M:N)
+        - released_date
+        - running_time
+        - genre (M:N)
+        - rating
+    - Actor
+        - name
+    - Genre
+        - name   
+
+- Critic
     - Oneline
         - movie (1:N)
 
@@ -43,13 +57,9 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
             - like_oneline list (sorted by like_oneline)
         - replies (user only)
             - replies list (sorted by updated_at)
-    - like
-        - like_oneline
-        - like_reply
-        - like_movie
     - follow
 
-- Movies
+- Movie
     - detail
         - movieinfo
             - poster img
@@ -60,20 +70,25 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
         - critic
             - critic form
             - critic list (user : rating, oneline)
-                - like_online
+                - like_oneline
                 - reply form
                 - reply list
                     - like_reply
+    - index
+        - welcome
         
-- Critics
+- Critic
     - oneline
         - create_oneline
-        - edit_oneline
+            - add rated_movie
+        - update_oneline
         - delete_oneline
     - reply
         - create_reply
-        - edit_reply
         - delete_reply
+    - like
+        - like_oneline
+
                 
 
 
@@ -84,5 +99,13 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
 
 - 23.04.11 13:00 pm, MovieOneline 프로젝트 시작.
 - 23.04.11 14:30 pm, MovieOneline 모델링 및 README.md 초안 작성 완료.
-- 
+- 23.04.11 17:00 pm, Movie 모델링 및 관련 model 수정.
+- 23.04.11 21:10 pm, Critic/reply update 기능 삭제, movie에 index 기능 추가.
+
+- 23.04.12 10:40 am, like_reply, like_movie 기능 삭제.
+- 23.04.12 11:00 am, create_oneline과 동시에 rated_movie에 data 추가 기능 구현.
+
+
+
+
 

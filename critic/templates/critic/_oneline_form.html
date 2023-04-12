@@ -1,0 +1,9 @@
+<div>
+    <h1>한줄평 등록</h1>
+    
+    <form action="{% url 'critic:create_oneline' %}" method="POST">
+        {% csrf_token %}
+        {{ oneline_form.as_p }}
+        <button>등록</button>
+    </form>
+</div>
