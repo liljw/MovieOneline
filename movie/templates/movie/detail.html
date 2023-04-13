@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 
+{% load bootstrap5 %}
+
 {% block content %}
 
-<h1>{{ movie.title }}</h1>
+<h1 class="text-center">{{ movie.title }}</h1>
 
-<p>
-    <img src="{{ movie.poster }}" alt="movie_poster">
-</p>
-
-<p>개봉일자: {{ movie.released_date }}</p>
-
-<p>러닝타임: {{ movie.running_time }}분</p>
+<div class="text-center mt-5">
+    <img src="{{ movie.poster_url }}" alt="movie_poster">
+    <p class="mt-4">개봉일자: {{ movie.released_date }}</p>
+    <p>러닝타임: {{ movie.running_time }}분</p>
+</div>
 
 
 
-<h2>Critic</h2>
+
+{% comment %} <h3 class="text-center mt-5">한줄평</h2> {% endcomment %}
 
 {% if request.user.is_authenticated %}
 {% if is_oneline_user %}
@@ -27,38 +28,47 @@
     <ul>
         {% for oneline in movie.oneline_set.all %}
         <li>
-            <a href="{% url 'accounts:profile' oneline.user.username %}">
-                {{ oneline.user.username }}: 
-            </a>
-            별점: {{ oneline.rating }}, 한줄평: {{ oneline.content }} 좋아요: {{ oneline.like_oneline_user.count }}
-            {% if request.user == oneline.user %}
-            <form action="{% url 'critic:update_oneline' oneline.pk %}" method="GET">
-                {% csrf_token %}
-                <button>수정</button>
-            </form>
-            <form action="{% url 'critic:delete_oneline' oneline.pk %}" method="POST">
-                {% csrf_token %}
-                <button>삭제</button>
-            </form>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-            <form action="{% url 'critic:like_oneline' oneline.pk %}" method="POST">
-                {% csrf_token %}
-                {% if request.user in oneline.like_oneline_user.all %}
-                <button>좋아요 취소</button>
-                {% else %}
-                <button>좋아요</button>
+            <div class="mt-4 mb-4">
+                <a href="{% url 'accounts:profile' oneline.user.username %}">
+                    {{ oneline.user.username }}: 
+                </a>
+                <p>
+                    별점: {{ oneline.rating }}
+                    <br>
+                    한줄평: {{ oneline.content }}
+                </p>
+                {% if request.user == oneline.user %}
+                <form action="{% url 'critic:update_oneline' oneline.pk %}" method="GET" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button class="btn btn-warning">수정</button>
+                </form>
+                <form action="{% url 'critic:delete_oneline' oneline.pk %}" method="POST" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">삭제</button>
+                </form>
                 {% endif %}
-            </form>
-            {% endif %}
-            {% if request.user.is_authenticated %}
+
+                {% if request.user.is_authenticated %}
+                <form action="{% url 'critic:like_oneline' oneline.pk %}" method="POST" style="display: inline-block;">
+                    {% csrf_token %}
+                    {% if request.user in oneline.like_oneline_user.all %}
+                    <button class="btn btn-primary">좋아요 취소({{ oneline.like_oneline_user.count }})</button>
+                    {% else %}
+                    <button class="btn btn-primary">좋아요({{ oneline.like_oneline_user.count }})</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+            </div>
+            <div class="mt-4">
+                {% if request.user.is_authenticated %}
                 {% include 'critic/_reply_form.html' %}
-            {% endif %}
-            {% include 'critic/_reply_list.html' %}
+                {% endif %}
+            </div>
+            <div class="mt-3">
+                {% include 'critic/_reply_list.html' %}
+            </div>
         </li>
         {% endfor %}
     </ul>
 </div>
-
-
 {% endblock content %}

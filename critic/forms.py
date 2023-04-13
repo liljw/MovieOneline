@@ -9,9 +9,13 @@ class OnelineForm(forms.ModelForm):
         fields = ('content', 'rating')
 
 class ReplyForm(forms.ModelForm):
-
+    content = forms.CharField(min_length=2, label='', widget=forms.TextInput(attrs={'placeholder': '댓글'}))
     class Meta:
         model = Reply
         fields = ('content', )
+        labels = {
+            'content': '댓글 입력'
+        }
+
         
         

@@ -35,8 +35,10 @@ def detail(request, movie_name, movie_id):
 
 def index(request):
     form = MovieSearchForm()
+    movies = Movie.objects.order_by('-pk')
     return render(request, 'movie/index.html', {
         'form': form,
+        'movies': movies,
     })
 
 def search(request):

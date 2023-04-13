@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% load bootstrap5 %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>제출</button>
-</form>
+{% block content %}
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <p>
+            <button class="btn btn-primary">제출</button>
+        </p>
+    </form>
+</div>
 
 
 

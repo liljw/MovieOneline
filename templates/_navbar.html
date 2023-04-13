@@ -1,24 +1,28 @@
-<nav>
-    <ul>
-        <li>{{ request.user }}님 안녕하세요 :)</li>
-        <li>
-            <a href="{% url 'movie:index' %}">Home</a>
-        </li>
-            {% if request.user.is_authenticated %}
-            <li>
-                <a href="{% url 'accounts:profile' request.user.username %}">My Profile</a>
-            </li>
-            <li>
-                <a href="{% url 'accounts:signout' %}">Log Out</a>
-            </li>
-            {% else %}
-            <li>
-                <a href="{% url 'accounts:signin' %}">Log In</a>
-            </li>
-            <li>
-                <a href="{% url 'accounts:signup' %}">Sign Up</a>
-            </li>
-            {% endif %}
-        </li>
-    </ul>
-</nav>
+<header class="mb-auto">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav col-lg-auto me-auto mb-2 mb-lg-0 text-white">
+                <span class="navbar-brand mb-1 mt-1 h1 text-white">MovieOneline</span>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="{% url 'movie:index' %}">Home</a>
+                </li class="nav-item">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="{% url 'accounts:profile' request.user.username %}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="{% url 'accounts:signout' %}">Log Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="{% url 'accounts:signin' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="{% url 'accounts:signup' %}">Sign Up</a>
+                </li>
+                {% endif %}
+                <span class="navbar-brand mx-2 text-primary">{{ request.user.username }}님 오늘도 좋은 하루 되세요!</span>
+            </ul>
+        </div>
+    </nav>
+</header>

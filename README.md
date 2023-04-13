@@ -96,18 +96,24 @@ MovieOneline은 '영화 한줄평 커뮤니티'로,
 
 ## Timeline
 
-- 23.04.11 13:00 pm, MovieOneline 프로젝트 시작.
-- 23.04.11 14:30 pm, MovieOneline 모델링 및 README.md 초안 작성 완료.
-- 23.04.11 17:00 pm, Movie 모델링 및 관련 model 수정.
-- 23.04.11 21:10 pm, Critic/reply update 기능 삭제, movie에 index 기능 추가.
+- 23.04.11 13:00 pm: MovieOneline 프로젝트 시작.
+- 23.04.11 14:30 pm: MovieOneline 모델링 및 README.md 초안 작성 완료.
+- 23.04.11 17:00 pm: Movie 모델링 및 관련 model 수정.
+- 23.04.11 21:10 pm: Critic/reply update 기능 삭제, movie에 index 기능 추가.
 
-- 23.04.12 10:40 am, like_reply, like_movie 기능 삭제.
-- 23.04.12 11:00 am, create_oneline과 동시에 rated_movie에 data 추가 기능 구현.
-- 23.04.12 11:30 am, navbar 추가, 서버 활성화 및 버그 수정 시작.
-- 23.04.12 12:00 pm, movie API 연동 시작, pip install tmdbsimple, requests.
-- 23.04.12 13:30 pm, 검색 기능 추가.
-- 23.04.12 14:50 pm, movie 모델링 수정. 
-- 23.04.12 23:10 pm, 모든 기능 구현 완료. (백엔드)
+- 23.04.12 10:40 am: like_reply, like_movie 기능 삭제.
+- 23.04.12 11:00 am: create_oneline과 동시에 rated_movie에 data 추가 기능 구현.
+- 23.04.12 11:30 am: navbar 추가, 서버 활성화 및 버그 수정 시작.
+- 23.04.12 12:00 pm: movie API 연동 시작, pip install tmdbsimple, requests.
+- 23.04.12 13:30 pm: 검색 기능 추가.
+- 23.04.12 14:50 pm: movie 모델링 수정. 
+- 23.04.12 23:10 pm: 모든 기능 구현 완료. (백엔드)
+
+- 23.04.13 09:00 am: html 이미지 파일 깨지는 현상 해결.
+- 23.04.13 10:00 am: bootstrap 적용 시작, pip install django-bootstrap-v5
+- 23.04.13 15:00 pm: 1차 front-end 작업 완료. 
+- 23.04.13 15:30 pm: tmdb_pk, oneline 중복 문제 발견 
+
 
 
 

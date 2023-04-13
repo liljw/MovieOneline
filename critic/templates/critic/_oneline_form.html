@@ -1,9 +1,10 @@
+{% load bootstrap5 %}
 <div>
-    <p>한줄평 등록</p>
+    <p>한줄평을 등록해주세요</p>
     
     <form action="{% url 'critic:create_oneline' movie.title %}" method="POST">
         {% csrf_token %}
-        {{ oneline_form.as_p }}
-        <button>등록</button>
+        {% bootstrap_form oneline_form %}
+        <button class="btn btn-dark">한줄평 등록</button>
     </form>
 </div>

@@ -10,6 +10,7 @@ from movie.models import Movie
 @require_POST
 def create_oneline(request, movie_name):
     movie = get_object_or_404(Movie, title=movie_name)
+
     form = OnelineForm(request.POST)
     if form.is_valid():
         oneline = form.save(commit=False)

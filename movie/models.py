@@ -5,8 +5,12 @@ class Movie(models.Model):
     poster = models.TextField()
     released_date = models.TextField()
     running_time = models.TextField()
-
+    # tmdb_pk = models.IntegerField()
     def __str__(self):
         return f'{self.title}'
     
+
+    @property
+    def poster_url(self):
+        return f'https://image.tmdb.org/t/p/w200{ self.poster }'
     

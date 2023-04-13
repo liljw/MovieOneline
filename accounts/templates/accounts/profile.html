@@ -4,28 +4,26 @@
 
 <h1>{{ profile_user.username }}의 Profile</h1>
 
-<p>팔로워: {{ profile_user.follower.count }} | 팔로잉: {{ profile_user.following.count }}</p>
-
-<div>
+<div class="d-lnline-block">
+    <p class="mt-4">팔로워: {{ profile_user.follower.count }} | 팔로잉: {{ profile_user.following.count }}</p>
     <form action="{% url 'accounts:follow' profile_user.username %}" method="POST">
         {% csrf_token %}
         {% if is_follower %}
-        <button>팔로우 취소</button>
+        <button class="btn btn-primary">팔로우 취소</button>
         {% else %}
-        <button>팔로우</button>
+        <button class="btn btn-primary">팔로우</button>
         {% endif %}
     </form>
 </div>
 
-<h2>{{ profile_user.username }}이 본 영화</h2>
+<h2 class="mt-4">{{ profile_user.username }}이 본 영화</h2>
 
-<div>
+<div class="mt-3">
     <ul>
         {% for movie in profile_user.rated_movie.all %}
-        <li>
-            {{ movie.poster }}
+        <li style="display: inline;">
             <a href="{% url 'movie:detail' movie.title movie.pk %}">
-                {{ movie.title }}
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title}}_poster">
             </a>
         </li>
         
@@ -33,7 +31,7 @@
     </ul>
 </div>
 
-<h2>{{ profile_user.username }}의 한줄평 모음</h2>
+<h2 class="mt-5">{{ profile_user.username }}의 한줄평 모음</h2>
 
 <div>
     <ul>
@@ -48,7 +46,7 @@
     </ul>
 </div>
 
-<h2>{{ profile_user.username }}이 좋아요 한 한줄평</h2>
+<h2 class="mt-5">{{ profile_user.username }}이 좋아요 한 한줄평</h2>
 
 <div>
     <ul>

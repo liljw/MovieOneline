@@ -1,17 +1,36 @@
 {% extends 'base.html' %}
 
+{% load bootstrap5 %}
+
 {% block content %}
 
-<h1>안녕하세요! MovieOneline 입니다 :)</h1>
-
-<p>영화 제목을 검색하세요</p>
-
-<div>
-    <form action="{% url 'movie:search' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button>검색</button>
-    </form>
+<div class="text-center">
+    <h1>안녕하세요! MovieOneline 입니다 :)</h1>
 </div>
+
+<div class="text-center mt-5">
+    <h2>영화 제목을 검색하세요</h2>
+    
+    <div class="mt-5">
+        <form action="{% url 'movie:search' %}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button class="btn btn-dark">검색</button>
+        </form>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <ul>
+        {% for movie in movies %}
+        <li style="display: inline;">
+            <a href="{% url 'movie:detail' movie.title movie.pk %}">
+                <img src="{{ movie.poster_url }}" alt="movie_poster">
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
 
 {% endblock content %}
