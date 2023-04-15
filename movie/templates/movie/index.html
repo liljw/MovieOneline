@@ -22,7 +22,7 @@
 
 <div class="text-center mt-5">
     <ul>
-        {% for movie in movies %}
+        {% for movie in movies|slice:":12" %}
         <li style="display: inline;">
             <a href="{% url 'movie:detail' movie.title movie.tmdb_pk %}">
                 <img src="{{ movie.poster_url }}" alt="movie_poster">
