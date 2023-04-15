@@ -24,7 +24,7 @@
     <ul>
         {% for movie in movies %}
         <li style="display: inline;">
-            <a href="{% url 'movie:detail' movie.title movie.pk %}">
+            <a href="{% url 'movie:detail' movie.title movie.tmdb_pk %}">
                 <img src="{{ movie.poster_url }}" alt="movie_poster">
             </a>
         </li>

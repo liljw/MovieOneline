@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
 from .models import Movie
 from .forms import MovieSearchForm
@@ -8,7 +10,7 @@ from critic.forms import OnelineForm, ReplyForm
 import tmdbsimple as tmdb
 tmdb.API_KEY = '29df6583a904bc9dd4937f055eb9d731'
 
-
+@require_http_methods(["GET", "POST"])
 def detail(request, movie_name, movie_id):
     response = tmdb.Movies(movie_id).info()
     if Movie.objects.filter(title=movie_name).exists():
@@ -19,6 +21,7 @@ def detail(request, movie_name, movie_id):
         movie.poster = response['poster_path']
         movie.released_date = response['release_date']
         movie.running_time = response['runtime']
+        movie.tmdb_pk = response['id']
         movie.save()
 
     oneline_form = OnelineForm()
@@ -33,6 +36,7 @@ def detail(request, movie_name, movie_id):
         'is_oneline_user': is_oneline_user
     })
 
+@require_safe
 def index(request):
     form = MovieSearchForm()
     movies = Movie.objects.order_by('-pk')
@@ -41,6 +45,7 @@ def index(request):
         'movies': movies,
     })
 
+@require_http_methods(["GET", "POST"])
 def search(request):
     form = MovieSearchForm(request.POST)
     if form.is_valid():

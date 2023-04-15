@@ -22,7 +22,7 @@
     <ul>
         {% for movie in profile_user.rated_movie.all %}
         <li style="display: inline;">
-            <a href="{% url 'movie:detail' movie.title movie.pk %}">
+            <a href="{% url 'movie:detail' movie.title movie.tmdb_pk %}">
                 <img src="{{ movie.poster_url }}" alt="{{ movie.title}}_poster">
             </a>
         </li>
@@ -37,7 +37,7 @@
     <ul>
         {% for oneline in profile_user.oneline_set.all %}
         <li>
-            <a href="{% url 'movie:detail' oneline.movie.title oneline.movie.pk %}">
+            <a href="{% url 'movie:detail' oneline.movie.title oneline.movie.tmdb_pk %}">
             {{ oneline.movie }}: 
             </a>
             {{ oneline.content }}

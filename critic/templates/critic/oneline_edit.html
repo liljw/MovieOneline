@@ -7,7 +7,7 @@
 <form action="{% url 'critic:update_oneline' oneline.pk %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button>수정</button>
+    <button class="btn btn-dark">수정</button>
 </form>
 
 {% endblock content %}
